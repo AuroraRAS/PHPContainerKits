@@ -1,0 +1,35 @@
+version: '3'
+services:
+  db:
+    image: "mariadb:latest"
+    restart: always
+    volumes:
+      - ./sysroot/etc/mysql:/etc/mysql
+      - ./sysroot/var/lib/mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: dbname
+      MYSQL_USER: dbuser
+      MYSQL_PASSWORD: dbpassword
+
+  phpfpm:
+    image: "php:fpm"
+    links:
+      - db
+    volumes:
+      - ./sysroot/usr/share/nginx:/usr/share/nginx
+      - ./sysroot/usr/local/etc:/usr/local/etc
+      - ./sysroot/usr/local/lib:/usr/local/lib
+
+  nginx:
+    image: "nginx:latest"
+    links:
+      - phpfpm
+    volumes:
+      - ./sysroot/etc/nginx:/etc/nginx:ro
+      - ./sysroot/etc/letsencrypt:/etc/letsencrypt:ro
+      - ./sysroot/usr/share/nginx:/usr/share/nginx:ro
+      - ./sysroot/var/log/nginx:/var/log/nginx
+    ports:
+      - "8080:80"
+      - "8443:443"
