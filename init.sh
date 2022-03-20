@@ -42,6 +42,10 @@ if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
     exit 0
 fi
 
+if [ "$1" = "-u" ] || [ "$1" = "--update" ]; then
+    docker pull "php:fpm" "mariadb:latest" "nginx:latest"
+fi
+
 sudo rm -rf "$(pwd)/sysroot/"
 
 mkdir -p "$(pwd)/sysroot/etc"
