@@ -18,4 +18,5 @@ apt update
 apt install unzip -y
 
 composer global require laravel/installer
+echo 'export PATH=~/.composer/vendor/bin:$PATH' >> ~/.bashrc
 

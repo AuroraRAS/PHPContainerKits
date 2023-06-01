@@ -50,6 +50,7 @@ sudo rm -rf "$(pwd)/sysroot/"
 
 mkdir -p "$(pwd)/sysroot/etc"
 mkdir -p "$(pwd)/sysroot/etc/letsencrypt"
+mkdir -p "$(pwd)/sysroot/usr/bin"
 mkdir -p "$(pwd)/sysroot/usr/lib/nginx"
 mkdir -p "$(pwd)/sysroot/usr/local"
 mkdir -p "$(pwd)/sysroot/usr/share"
@@ -65,6 +66,7 @@ cp_php=$(docker create --rm php:fpm)
 docker cp $cp_php:/usr/local/etc $(pwd)/sysroot/usr/local/etc
 docker cp $cp_php:/usr/local/lib $(pwd)/sysroot/usr/local/lib
 docker rm $cp_php
+cp scripts/laravel-setup.sh $(pwd)/sysroot/usr/bin
 
 cp_web=$(docker create --rm nginx:latest)
 docker cp $cp_web:/etc/nginx $(pwd)/sysroot/etc/nginx
