@@ -20,6 +20,7 @@ services:
       - ./sysroot/usr/share/nginx:/usr/share/nginx
       - ./sysroot/usr/local/etc:/usr/local/etc
       - ./sysroot/usr/local/lib:/usr/local/lib
+      - ./sysroot/usr/bin/laravel-setup.sh:/usr/bin/laravel-setup.sh
 
   nginx:
     image: "nginx:latest"
